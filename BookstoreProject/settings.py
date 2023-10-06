@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "allauth.account",
     'accounts.apps.AccountsConfig',
     'pages.apps.PagesConfig',
+    'books.apps.BooksConfig',
 ]
 
 MIDDLEWARE = [
@@ -147,10 +148,22 @@ SITE_ID = 1
 AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",
                            "allauth.account.auth_backends.AuthenticationBackend",)
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
+
+
+EMAIL_HOST = "smtp.yandex.ru"
+EMAIL_PORT = 465
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+
+EMAIL_HOST_USER = "advtorygin@stud.etu.ru"
+EMAIL_HOST_PASSWORD = 'dwqmwkmjaelyjspl'
+DEFAULT_FROM_EMAIL = "advtorygin@stud.etu.ru"
+
+

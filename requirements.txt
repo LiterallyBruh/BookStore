@@ -7,3 +7,4 @@ crispy-bootstrap5==0.7
 django-allauth==0.57.0
 environs==9.5.0
 dj-database-url==2.1.0
+pillow==10.0.1

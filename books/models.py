@@ -6,6 +6,7 @@ from django.contrib.auth import get_user_model
 class Book(models.Model):
     id = models.UUIDField(
         primary_key=True,
+        db_index=True,
         default=uuid.uuid4,
         editable=False)
     title = models.CharField(max_length=200)

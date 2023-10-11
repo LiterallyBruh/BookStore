@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from environs import Env
 import dj_database_url
+import socket
 
 env = Env()
 env.read_env()
@@ -47,12 +48,14 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     "allauth",
     "allauth.account",
+    "debug_toolbar",
     'accounts.apps.AccountsConfig',
     'pages.apps.PagesConfig',
     'books.apps.BooksConfig',
 ]
 
 MIDDLEWARE = [
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -61,7 +64,13 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "allauth.account.middleware.AccountMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    "django.middleware.cache.FetchFromCacheMiddleware",
 ]
+
+CACHE_MIDDLEWARE_ALIAS = "default"
+CACHE_MIDDLEWARE_SECONDS = 604800
+CACHE_MIDDLEWARE_KEY_PREFIX = ""
 
 ROOT_URLCONF = 'BookstoreProject.urls'
 
@@ -168,5 +177,8 @@ EMAIL_USE_SSL = True
 EMAIL_HOST_USER = "advtorygin@stud.etu.ru"
 EMAIL_HOST_PASSWORD = 'dwqmwkmjaelyjspl'
 DEFAULT_FROM_EMAIL = "advtorygin@stud.etu.ru"
+
+hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+INTERNAL_IPS = [ip[:-1] + "1" for ip in ips]
 
 

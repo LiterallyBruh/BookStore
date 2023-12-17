@@ -1,7 +1,11 @@
 version: "3.9"
 services:
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - key='secret-key'
     command: python /code/manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/code
@@ -11,7 +15,7 @@ services:
       - db
     environment:
       - "DJANGO_SECRET_KEY=django-insecure-et6+_jao)q1522yt8_#=8_o!b8&a_u7*hq#xofvpah6_h*)pd-"
-      - "DJANGO_DEBUG=True"
+      - "DJANGO_DEBUG=False"
       - "DJANGO_SECURE_SSL_REDIRECT=False"
       - "DJANGO_SECURE_HSTS_SECONDS=0"
       - "DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS=False"

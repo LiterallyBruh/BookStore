@@ -9,5 +9,9 @@ WORKDIR /code
 # Install dependencies
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
-# Copy project
+ARG key
+ENV DJANGO_SECRET_KEY=$key
+RUN echo '$DJANGO_SECRET_KEY'
+RUN python manage.py migrate --settings=BookstoreProject.settings.dev-microservice
+CMD python manage.py runserver 0.0.0.0:8001 --settings=BookstoreProject.settings.dev-microservice
 COPY . .
